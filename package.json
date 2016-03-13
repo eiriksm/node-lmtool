@@ -1,0 +1,36 @@
+{
+  "name": "lmtool",
+  "version": "1.0.0",
+  "description": "Programatically submit files to lmtool and get the files back",
+  "main": "index.js",
+  "scripts": {
+    "test": "npm run lint && mocha",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/eiriksm/node-lmtool.git"
+  },
+  "keywords": [
+    "lmtool"
+  ],
+  "author": "Eirik S. Morland <eirik@morland.no>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/eiriksm/node-lmtool/issues"
+  },
+  "homepage": "https://github.com/eiriksm/node-lmtool#readme",
+  "devDependencies": {
+    "coveralls": "^2.11.8",
+    "eslint": "^2.4.0",
+    "istanbul": "^0.4.2",
+    "mocha": "^2.4.5",
+    "should": "^8.1.1"
+  },
+  "dependencies": {
+    "async": "^1.5.2",
+    "jsdom": "^8.1.0",
+    "request": "^2.67.0",
+    "tar": "^2.2.1"
+  }
+}
