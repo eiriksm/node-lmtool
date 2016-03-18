@@ -24,8 +24,10 @@ module.exports = function uploadText(url, words, callback) {
   });
   let form = req.form();
   form.append('formtype', 'simple');
+  /*eslint-disable quotes*/
   form.append('corpus', words.join("\n"), {
+    /*eslint-enable quotes*/
     filename: 'corpus.txt',
     contentType: 'text/plain'
   });
-}
+};

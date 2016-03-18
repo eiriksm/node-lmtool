@@ -6,9 +6,11 @@ const fs = require('fs');
 
 module.exports = function unzipAndExtract(fileName, callback) {
   let p = path.join(process.cwd(), fileName);
+  /*eslint-disable new-cap */
   let exx = tar.Extract({
     path: process.cwd()
   })
+  /*eslint-enable new-cap */
   .on('error', callback)
   .on('end', callback);
   let gunz = zlib.createGunzip();
@@ -16,4 +18,4 @@ module.exports = function unzipAndExtract(fileName, callback) {
   .on('error', callback)
   .pipe(gunz)
   .pipe(exx);
-}
+};

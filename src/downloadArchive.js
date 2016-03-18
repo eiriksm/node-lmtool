@@ -8,18 +8,18 @@ module.exports = function(uri, callback) {
   let urlObj = url.parse(uri);
   let filename = path.basename(urlObj.pathname);
   let done = false;
-  let _callback = function() {
+  let innerCallback = function() {
     if (done) {
       return;
     }
     done = true;
     callback.apply(callback, arguments);
-  }
+  };
   request
   .get(uri)
-  .on('error', _callback)
+  .on('error', innerCallback)
   .on('end', function() {
-    _callback(null, filename);
+    innerCallback(null, filename);
   })
-  .pipe(fs.createWriteStream(path.join(process.cwd(), filename)))
-}
+  .pipe(fs.createWriteStream(path.join(process.cwd(), filename)));
+};

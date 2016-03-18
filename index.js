@@ -11,7 +11,7 @@ module.exports = function createDictionary(words, callback) {
     findArchive,
     downloadArchive,
     extractArchive
-  ], function(e, d) {
+  ], function(e) {
     callback(e);
   });
-}
+};

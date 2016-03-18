@@ -1,3 +1,4 @@
+'use strict';
 const jsdom = require('jsdom');
 module.exports = function(url, callback) {
   jsdom.env(
@@ -17,5 +18,5 @@ module.exports = function(url, callback) {
         callback(null, link);
       }
     }
-  )
-}
+  );
+};
