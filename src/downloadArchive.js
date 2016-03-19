@@ -13,13 +13,13 @@ module.exports = function(uri, callback) {
       return;
     }
     done = true;
-    callback.apply(callback, arguments);
+    return callback.apply(callback, arguments);
   };
   request
   .get(uri)
   .on('error', innerCallback)
   .on('end', function() {
-    innerCallback(null, filename);
+    return innerCallback(null, filename);
   })
   .pipe(fs.createWriteStream(path.join(process.cwd(), filename)));
 };
