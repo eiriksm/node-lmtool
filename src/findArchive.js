@@ -11,7 +11,7 @@ module.exports = function(url, callback) {
       // Get the last link on the page.
       let link = window.$('a').last()[0].href;
       // Check that it is tgz.
-      if (!link.indexOf('tgz')) {
+      if (link.indexOf('tgz') < 0) {
         callback(new Error('No archive found.'));
       }
       else {
