@@ -13,7 +13,7 @@ StubEmitter.prototype.pipe = function () {
   // noop.
 };
 
-require('should');
+const should = require('should');
 
 let stub;
 let requestStub = {
@@ -28,12 +28,13 @@ describe('downloadArchive module', function() {
   });
   it('Should do as expected', (done) => {
     let port = 8866;
-    require('http').createServer((req, res) => {
+    let server = require('http').createServer((req, res) => {
       res.end('testResponse')
     }).listen(port);
     require('../src/downloadArchive')(`http://localhost:${port}/1234.tar.gz`, (err, d) => {
       // See that the contents of the file is as expected.
       fs.readFileSync(path.join(process.cwd(), d)).toString().should.equal('testResponse');
+      server.close();
       done(err);
     });
   });
@@ -70,6 +71,41 @@ describe('findArchive module', function() {
   it('Should export a function', () => {
     require('../src/findArchive').should.be.instanceOf(Function);
   });
+  it('Should do as expected', (done) => {
+    let port = 8877;
+    let server = require('http').createServer((req, res) => {
+      res.end('<html><body><a href="1">test</a><a href="2.tgz">test2</a></body></html>');
+    }).listen(port);
+    require('../src/findArchive')(`http://localhost:${port}`, (err, d) => {
+      d.should.equal(`http://localhost:${port}/2.tgz`)
+      done(err);
+      server.close()
+    });
+  });
+  it('Should do as expected when no archive is found', (done) => {
+    let port = 8888;
+    let server = require('http').createServer((req, res) => {
+      res.end('<html><body><a href="1">test</a><a href="2.tar.gz">test2</a></body></html>');
+    }).listen(port);
+    require('../src/findArchive')(`http://localhost:${port}`, (err, d) => {
+      should(d).equal(undefined);
+      err.message.should.equal('No archive found.')
+      server.close()
+      done();
+    });
+  });
+  it('Should do as expected when having jsdom error', (done) => {
+    proxyquire('../src/findArchive', {
+      'jsdom': {
+        env: function(url, inject, callback) {
+          callback(new Error(`No way will I inject ${inject} to ${url}`));
+        }
+      }
+    })('http://example.com', (err, d) => {
+      err.message.should.equal('No way will I inject http://code.jquery.com/jquery.js to http://example.com');
+      done();
+    });
+  })
 });
 
 describe('uploadText module', function() {
