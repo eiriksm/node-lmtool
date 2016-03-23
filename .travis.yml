@@ -1,8 +1,17 @@
 language: node_js
 node_js:
-  - node
-  - "4"
+- node
+- '4'
 sudo: false
 after_script:
-  - npm run coverage
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js > /dev/null 2>&1
+- npm run coverage
+- cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js > /dev/null
+  2>&1
+deploy:
+  provider: npm
+  email: eirik@morland.no
+  api_key:
+    secure: QKq4lzUaqG6P2fwMC53PE+hTIwbddXtu7Ue73MFzRCJTVKnzVJlz4mzUvJ5Hz2YDEnjuC6y4cOUhU0qvpQLQgWMCd7mar6y+/2Xg1Y4BgYtrWfDrKocp8IZDtSRL+NAcVwD0Y5eYNg/wUZ81V2xB4amIZc6VPkAkH/janwrZuEB2BVyp4bx4gjL9665irC/KOjSxhHH/fwrpyPEZGz4qttyw2cK/ETJOCzKXMs8E3XeWgr5raCv4QJnQs3NrEiKT56F9KpIYV3DPmxQ2HnpRjNj4lbSWq9KHhUe7YnehyzPCbiKfF4fGUhJkSDGDP+6cmiGHKiHx1U4kRt963FkEwk7NnavD3k9iL4PRtSOH7RxWg+TfQZOC/YAybX+/zmtBkfhHV13uAmRc81vwQL49ujcnAdbAurWXhaGEmg45K4ttrGCQxB+E6lefJwx4NNHsqD1BgAE3L9KYmBCAj/9ebWHPP1D1aMdhiLCeT7r01x7pE58MlEularpRKMGHMA/DpEo7g7vUzMmUHTeid6OpUnGUBf+mbBErti17rw7lMX66l+Ff7MITpez8GznAchhU5JFGNyY7jmDBqoC4m34JuknmypduPZdEpnOOjgFW1s9v3t3XJUk4o8b9gxp3UAQsFCfbmoZDQS7qKhmyZecjmk+4dzz+jORBjrZpiznoyZU=
+  on:
+    tags: true
+    repo: eiriksm/node-lmtool
