@@ -10,7 +10,7 @@ module.exports = function unzipAndExtract(fileName, callback) {
     path: process.cwd()
   })
   .on('error', callback)
-  .on('end', callback);
+  .on('end', callback.bind(null, null, fileName.replace('TAR', '').replace('.tgz', '')));
   let gunz = zlib.createGunzip();
   fs.createReadStream(p)
   .on('error', callback)
