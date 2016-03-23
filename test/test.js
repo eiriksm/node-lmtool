@@ -58,9 +58,17 @@ describe('extractArchive module', function() {
   it('Should export a function', () => {
     require('../src/extractArchive').should.be.instanceOf(Function);
   });
+  it('Should return the filename when the file exists', (done) => {
+    let fileName = 'TAR1337.tgz';
+    fs.writeFileSync(fileName, '');
+    require('../src/extractArchive')(fileName, (err, d) => {
+      fs.unlinkSync(fileName);
+      d.should.equal('1337');
+      done(err);
+    })
+  })
   it('Should do as expected when encountering unknown file', (done) => {
-    proxyquire('../src/extractArchive', {
-    })('willneverxist.tar.gz', (err, d) => {
+    require('../src/extractArchive')('willneverxist.tar.gz', (err, d) => {
       err.code.should.equal('ENOENT');
       done()
     });
