@@ -122,4 +122,33 @@ describe('uploadText module', function() {
   it('Should export a function', () => {
     require('../src/uploadText').should.be.instanceOf(Function);
   });
+  it('Should do as expected when response is as expected', (done) => {
+    let port = 8899;
+    let server = require('http').createServer((req, res) => {
+      res.writeHead(302, {Location: 'http://example.com'});
+      res.end();
+    }).listen(port);
+    require('../src/uploadText')(`http://localhost:${port}`, ['a', 'b'], (err, d) => {
+      d.should.equal('http://example.com');
+      done(err);
+      server.close();
+    });
+  });
+  it('Should do as expected when response is wrong', (done) => {
+    let port = 9911;
+    let server = require('http').createServer((req, res) => {
+      res.end('hello');
+    }).listen(port);
+    require('../src/uploadText')(`http://localhost:${port}`, ['a', 'b'], (err, d) => {
+      err.message.should.equal('No location header found');
+      server.close();
+      done();
+    });
+  });
+  it('Should do as expected if request returns an error', (done) => {
+    require('../src/uploadText')('noprotocol://horrible&domain:thisisnotaport', ['a', 'b'], (err, d) => {
+      err.message.should.equal('Invalid protocol: noprotocol:');
+      done();
+    });
+  })
 });
