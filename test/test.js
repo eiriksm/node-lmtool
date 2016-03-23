@@ -34,6 +34,7 @@ describe('downloadArchive module', function() {
     require('../src/downloadArchive')(`http://localhost:${port}/1234.tar.gz`, (err, d) => {
       // See that the contents of the file is as expected.
       fs.readFileSync(path.join(process.cwd(), d)).toString().should.equal('testResponse');
+      fs.unlinkSync(path.join(process.cwd(), d));
       server.close();
       done(err);
     });
@@ -43,6 +44,7 @@ describe('downloadArchive module', function() {
     proxyquire('./../src/downloadArchive', {
       'request': requestStub
     })('http://localhost:8866/1234.tar.gz', (err, d) => {
+      fs.unlinkSync(path.join(process.cwd(), d));
       done(err);
     });
     setTimeout(_ => {
