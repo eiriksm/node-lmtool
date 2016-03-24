@@ -59,8 +59,9 @@ describe('extractArchive module', function() {
     require('../src/extractArchive').should.be.instanceOf(Function);
   });
   it('Should return the filename when the file exists', (done) => {
+    // Create an empty, valid tar gz archive.
     let fileName = 'TAR1337.tgz';
-    fs.writeFileSync(fileName, '');
+    fs.writeFileSync(fileName, new Buffer([31, 139, 8, 0, 189, 204, 242, 86, 0, 3, 237, 207, 75, 10, 133, 48, 12, 133, 225, 46, 165, 75, 136, 53, 141, 235, 41, 168, 32, 190, 160, 234, 254, 175, 222, 135, 163, 139, 51, 29, 253, 223, 228, 16, 56, 132, 36, 185, 251, 137, 136, 169, 250, 35, 43, 139, 239, 148, 240, 153, 127, 124, 17, 172, 210, 168, 22, 204, 188, 20, 165, 68, 117, 94, 30, 184, 205, 109, 203, 154, 242, 126, 74, 211, 229, 174, 31, 231, 60, 164, 169, 254, 215, 219, 107, 109, 123, 177, 231, 251, 199, 153, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 220, 232, 5, 194, 100, 156, 77, 0, 40, 0, 0]));
     require('../src/extractArchive')(fileName, (err, d) => {
       fs.unlinkSync(fileName);
       d.should.equal('1337');
