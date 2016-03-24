@@ -1,6 +1,6 @@
 {
   "name": "lmtool",
-  "version": "2.0.2",
+  "version": "2.0.3",
   "description": "Programatically submit files to lmtool and get the files back",
   "main": "index.js",
   "scripts": {
