@@ -25,7 +25,7 @@
     "coveralls": "^2.11.8",
     "eslint": "^3.0.1",
     "istanbul": "^0.4.2",
-    "mocha": "^2.4.5",
+    "mocha": "^2.5.0",
     "proxyquire": "^1.7.4",
     "should": "^9.0.0"
   },
