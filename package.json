@@ -31,7 +31,7 @@
   },
   "dependencies": {
     "async": "^2.0.0",
-    "jsdom": "^9.0.0",
+    "jsdom": "^10.0.0",
     "request": "^2.67.0",
     "tar": "^2.2.1"
   }
