@@ -1,4 +1,6 @@
 # node-lmtool
+
+[![Greenkeeper badge](https://badges.greenkeeper.io/eiriksm/node-lmtool.svg)](https://greenkeeper.io/)
 Programatically submit files to lmtool and get the files back
 
 [![Build Status](https://travis-ci.org/eiriksm/node-lmtool.svg?branch=master)](https://travis-ci.org/eiriksm/node-lmtool)
